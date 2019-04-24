@@ -1,0 +1,25 @@
+version: '2.1'
+services:
+
+  web:
+    image: pubsweet/pubsweet:base
+    command: sh -c "yarn && yarn seed && yarn server"
+    ports:
+      - ${PORT:-3000}:3000
+    volumes:
+      - .:/app
+    working_dir: /app
+    environment:
+      PGHOST: db
+      PGUSER: $USER
+
+  db:
+    image: postgres:10
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: $USER
+      POSTGRES_DB: starter
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      - ./scripts/test.sql:/docker-entrypoint-initdb.d/test.sql

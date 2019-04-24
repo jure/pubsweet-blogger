@@ -1,0 +1,7 @@
+[
+  "@pubsweet/model-user",
+  "@pubsweet/model-team",
+  "@pubsweet/model-blog",
+  "@pubsweet/model-blogpost",
+  "@pubsweet/component-password-reset-server"
+]

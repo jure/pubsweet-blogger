@@ -1,0 +1,64 @@
+variables:
+  IMAGE_ORG: pubsweet
+  IMAGE_NAME: starter
+
+stages:
+  - build
+  - test
+
+build:
+  image: docker:stable
+  stage: build
+  script:
+    - docker version
+    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+    - echo "Ignore warning! Cannot perform an interactive login from a non TTY device"
+    - docker build -t $IMAGE_ORG/$IMAGE_NAME:$CI_COMMIT_SHA .
+    - docker push $IMAGE_ORG/$IMAGE_NAME:$CI_COMMIT_SHA
+
+test:chrome:
+  image: $IMAGE_ORG/$IMAGE_NAME:$CI_COMMIT_SHA
+  stage: test
+  variables:
+    GIT_STRATEGY: none
+    # setup data for postgres image
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: pw
+    # connection details for tests
+    PGUSER: test
+    PGPASSWORD: pw
+    NODE_ENV: test
+  services:
+    - postgres
+  script:
+    - cd ${HOME}
+    # specify host here else it confuses the linked postgres image
+    - PGHOST=postgres npx testcafe 'chrome:headless --no-sandbox' test/**/*.test.js
+
+test:firefox:
+  image: $IMAGE_ORG/$IMAGE_NAME:$CI_COMMIT_SHA
+  stage: test
+  variables:
+    GIT_STRATEGY: none
+    # setup data for postgres image
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: pw
+    # connection details for tests
+    PGUSER: test
+    PGPASSWORD: pw
+    NODE_ENV: test
+  services:
+    - postgres
+  script:
+    - cd ${HOME}
+    # specify host here else it confuses the linked postgres image
+    - PGHOST=postgres npx testcafe firefox:headless test/**/*.test.js
+
+lint:
+  image: $IMAGE_ORG/$IMAGE_NAME:$CI_COMMIT_SHA
+  stage: test
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - cd ${HOME}
+    - npm run lint

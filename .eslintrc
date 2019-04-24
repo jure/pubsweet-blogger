@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "extends": ["pubsweet"],
+  "rules": {
+    "import/no-dynamic-require": 0,
+    "import/no-extraneous-dependencies": 0,
+    "sort-keys": 0
+  },
+  "overrides": [
+    {
+      "files": ["test/**/*.test.js"],
+      "globals": {
+        "fixture": true,
+        "text": true
+      }
+    }
+  ]
+}
