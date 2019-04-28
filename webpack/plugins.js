@@ -67,7 +67,7 @@ module.exports = (opts = {}) => {
       /@atlaskit\/media-ui\/mixins.js/,
       path.join(
         __dirname,
-        '../app/components/CollabEditor/src/media-ui-mixins.js',
+        '../app/components/component-atlaskit-editor/src/_styledCompat/mixins.js',
       ),
     ),
   )
@@ -77,10 +77,20 @@ module.exports = (opts = {}) => {
       /@atlaskit\/editor-core\/plugins\/gap-cursor\/styles.js/,
       path.join(
         __dirname,
-        '../app/components/CollabEditor/src/gap-cursor-styles.js',
+        '../app/components/component-atlaskit-editor/src/_styledCompat/styles.js',
       ),
     ),
   )
+
+  // plugins.push(
+  //   new webpack.NormalModuleReplacementPlugin(
+  //     /@atlaskit\/editor-core\/plugins\/collab-edit\/ui\/avatars.js/,
+  //     path.join(
+  //       __dirname,
+  //       '../app/components/component-atlaskit-editor/src/collab-edit/ui/avatars.jsx',
+  //     ),
+  //   ),
+  // )
 
   return plugins
 }

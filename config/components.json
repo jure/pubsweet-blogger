@@ -3,5 +3,6 @@
   "@pubsweet/model-team",
   "@pubsweet/model-blog",
   "@pubsweet/model-blogpost",
-  "@pubsweet/component-password-reset-server"
+  "@pubsweet/component-password-reset-server",
+  "./server/component-atlaskit-collab"
 ]

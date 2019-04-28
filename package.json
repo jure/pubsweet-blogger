@@ -1,7 +1,7 @@
 {
-  "name": "@pubsweet/starter",
+  "name": "@pubsweet/blogger",
   "version": "1.0.0-alpha.1",
-  "description": "A new pubsweet app",
+  "description": "A PubSweet blogger app",
   "files": [
     "app",
     "config",
@@ -10,6 +10,7 @@
   ],
   "main": "app.js",
   "dependencies": {
+    "@babel/preset-typescript": "^7.3.3",
     "@pubsweet/coko-theme": "^5.1.0",
     "@pubsweet/component-password-reset-client": "^3.0.7",
     "@pubsweet/component-password-reset-server": "^2.0.3",
@@ -29,7 +30,18 @@
     "pubsweet-component-login": "^3.0.1",
     "pubsweet-component-signup": "^2.0.1",
     "pubsweet-server": "^13.3.0",
-    "xpub-edit": "^2.5.17"
+    "ts-loader": "^5.4.3",
+    "xpub-edit": "^2.5.17",
+    "@atlaskit/avatar": "^15.0.1",
+    "@atlaskit/avatar-group": "^3.0.1",
+    "@atlaskit/editor-common": "36.2.2",
+    "@atlaskit/editor-core": "107.24.0",
+    "@atlaskit/media-core": "^29.1.0",
+    "@types/styled-components": "^4.1.14",
+    "react-intl": "^2.8.0",
+    "@atlaskit/adf-schema": "^2.3.1",
+    "cors": "^2.8.5",
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

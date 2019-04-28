@@ -37,8 +37,16 @@ module.exports = [
       alias: {
         joi: 'joi-browser',
         config: clientConfigPath,
+        '../../plugins/collab-edit/ui/avatars': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/src/collab-edit/ui/avatars.tsx',
+        ),
+        './collab-edit': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/src/collab-edit',
+        ),
       },
-      extensions: ['.js', '.jsx', '.json', '.scss'],
+      extensions: ['.js', '.jsx', '.json', '.tsx', '.ts'],
       enforceExtension: false,
     },
     plugins: plugins({

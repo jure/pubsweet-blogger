@@ -2,13 +2,14 @@ const babelIncludes = require('./babel-includes')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = [
-  { test: /\.tsx?$/, loader: 'ts-loader' },
+  // { test: /\.tsx?$/, loader: 'ts-loader' },
   {
-    test: /\.js$|\.jsx$/,
+    test: /\.(js|jsx|ts|tsx)$/,
     loader: 'babel-loader',
     query: {
       presets: [
         ['@babel/preset-env', { modules: false }],
+        '@babel/preset-typescript',
         '@babel/preset-react',
       ],
       plugins: [

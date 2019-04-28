@@ -1,0 +1,14 @@
+{
+  "name": "@pubsweet/component-posts",
+  "version": "1.0.0",
+  "description": "Posts manager component for PubSweet",
+  "main": "src/",
+  "author": "Collaborative Knowledge Foundation",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.coko.foundation/pubsweet/pubsweet"
+  }
+}

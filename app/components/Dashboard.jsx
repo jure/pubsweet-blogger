@@ -1,10 +1,9 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import AuthenticatedComponent from 'pubsweet-client/src/components/AuthenticatedComponent'
-
+import Editor from './component-atlaskit-editor/src/Editor.tsx'
 import ConnectedNavigation from './Navigation/ConnectedNavigation'
-import HelloWorld from './HelloWorld'
-import KitchenSink from './KitchenSink'
+import Posts from './component-posts'
 
 const Dashboard = () => (
   <>
@@ -12,9 +11,9 @@ const Dashboard = () => (
     <AuthenticatedComponent>
       <ConnectedNavigation />
       <Switch>
-        <Redirect exact path="/dashboard" to="/dashboard/hello-world" />
-        <Route component={HelloWorld} path="/dashboard/hello-world" />
-        <Route component={KitchenSink} path="/dashboard/kitchen-sink" />
+        <Redirect exact path="/dashboard" to="/dashboard/posts" />
+        <Route component={Posts} path="/dashboard/posts" />
+        <Route component={Editor} path="/dashboard/editor/:id" />
       </Switch>
     </AuthenticatedComponent>
   </>

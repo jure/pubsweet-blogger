@@ -5,15 +5,12 @@ import { compose, withProps } from 'recompose'
 import { AppBar, Action } from '@pubsweet/ui'
 
 const Navigation = ({ logoutUser, currentUser, client }) => {
-  const links = [
-    <Action to="/dashboard/hello-world">Hello World</Action>,
-    <Action to="/dashboard/kitchen-sink">Kitchen Sink</Action>,
-  ]
+  const links = [<Action to="/dashboard/posts">Posts</Action>]
 
   return (
     <div>
       <AppBar
-        brand={<img alt="pubsweet" src="/assets/pubsweet.jpg" />}
+        brand={<img alt="pubsweet" src="/assets/pubsweet.svg" />}
         navLinkComponents={links}
         onLogoutClick={() => logoutUser(client)}
         user={currentUser}
