@@ -57,7 +57,7 @@ export const getParticipant = (userId: string) => {
   return {
     userId,
     name,
-    avatar: `https://api.adorable.io/avatars/80/${name.replace(/\s/g, '')}.png`,
+    avatar: ,
     email: `${name.replace(/\s/g, '').toLocaleLowerCase()}@atlassian.com`,
   };
 };

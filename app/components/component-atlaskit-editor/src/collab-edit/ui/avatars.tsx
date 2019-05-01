@@ -109,7 +109,7 @@ const AvatarItem: any = styled.div`
 
 function Item(props: any) {
   const color = getAvatarColor(props.sessionId).color.solid;
-  const avatar = props.name.substr(0, 1).toUpperCase();
+  const avatar = props.name.substr(0, 2).toUpperCase();
   const { children, theme, ...other } = props;
 
   return (

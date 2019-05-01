@@ -216,7 +216,7 @@ export class PluginState {
       participants = participants.remove(left.map(i => i.sessionId));
       participants = participants.add(joined);
 
-      // Remove telepointers for users that left
+    // Remove telepointers for users that left
       left.forEach(i => {
         const pointers = findPointers(i.sessionId, decorationSet);
         if (pointers) {

@@ -2,10 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router-dom'
 import { compose, withProps } from 'recompose'
-import { AppBar, Action } from '@pubsweet/ui'
+import { AppBar, Action, Icon } from '@pubsweet/ui'
 
 const Navigation = ({ logoutUser, currentUser, client }) => {
-  const links = [<Action to="/dashboard/posts">Posts</Action>]
+  const links = [
+    <Action to="/dashboard/posts">
+      <Icon primary size={2}>
+        file-text
+      </Icon>
+      Posts
+    </Action>,
+  ]
 
   return (
     <div>

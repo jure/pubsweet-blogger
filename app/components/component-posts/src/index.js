@@ -1,7 +1,9 @@
 import React from 'react'
 import gql from 'graphql-tag'
+import styled from 'styled-components'
 import { Query } from 'react-apollo'
-import { Action, ActionGroup } from '@pubsweet/ui'
+import { Action, ActionGroup, Flexbox, H1, Icon, Section } from '@pubsweet/ui'
+import { th } from '@pubsweet/ui-toolkit'
 
 import CreatePost from './CreatePost'
 
@@ -14,6 +16,29 @@ export const GET_POSTS = gql`
   }
 `
 
+const Title = styled.span`
+  flex: 2;
+`
+
+const Authors = styled.span`
+  flex: 2;
+`
+const Actions = styled.div`
+  flex: 1;
+`
+
+const PaddedAction = styled(Action)`
+  padding-right: 1rem;
+
+  &:not(:last-of-type) {
+    padding-right: 0rem;
+  }
+`
+
+const StyledSection = styled(Section)`
+  margin: 0 calc(${th('gridUnit')} * 3) calc(${th('gridUnit')} * 3) 1rem;
+`
+
 const Posts = () => (
   <Query query={GET_POSTS}>
     {({ loading, error, data }) => {
@@ -21,18 +46,27 @@ const Posts = () => (
       if (error) return `Error! ${error.message}`
 
       return (
-        <>
+        <StyledSection>
+          <H1>Your posts</H1>
+          <Flexbox>
+              <Title>Title</Title>
+              <Authors>Authors</Authors>
+              <Actions>Actions</Actions>
+          </Flexbox>
           {data.fragments.map(post => (
             <React.Fragment key={post.id}>
-              <ActionGroup>
-                <span key={post.id}>{post.title}</span>
-                <Action to={`/dashboard/editor/${post.id}`}>Edit</Action>
-                <Action>Delete</Action>
-              </ActionGroup>
+              <Flexbox>
+                <Title>{post.title}</Title>
+                <Authors>user1, user2<Icon size={2}>plus</Icon></Authors>
+                <Actions>
+                <PaddedAction to={`/dashboard/editor/${post.id}`}>Edit</PaddedAction>
+                <PaddedAction to=''>Delete</PaddedAction>
+                </Actions>
+              </Flexbox>
             </React.Fragment>
           ))}
           <CreatePost />
-        </>
+        </StyledSection>
       )
     }}
   </Query>

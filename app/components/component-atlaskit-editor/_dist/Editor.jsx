@@ -172,7 +172,7 @@ var App = /** @class */ (function (_super) {
             allowHeaderColumn: true,
             permittedLayouts: 'all',
             stickToolbarToBottom: true,
-        }} allowTemplatePlaceholders={{ allowInserting: true }} 
+        }} allowTemplatePlaceholders={{ allowInserting: true }}
         // media={{
         //   provider: mediaProvider,
         //   allowMediaSingle: true,
@@ -194,7 +194,7 @@ var App = /** @class */ (function (_super) {
                 url: 'http://localhost:3000',
                 securityProvider: function () { return ({
                     headers: {
-                        Authorization: 'test',
+                        Authorization: localStorage.token,
                         'user-ari': userId,
                     },
                     omitCredentials: true,

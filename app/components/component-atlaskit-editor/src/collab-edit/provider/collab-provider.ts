@@ -17,6 +17,7 @@ import {
 import { Channel } from './channel';
 import { logger } from './';
 import { getParticipant } from './mock-users';
+import { response } from 'express';
 
 export class CollabProvider implements CollabEditProvider {
   private eventEmitter: EventEmitter2 = new EventEmitter2();
@@ -229,14 +230,14 @@ export class CollabProvider implements CollabEditProvider {
     this.emit('telepointer', data);
   };
 
-  private updateParticipant(userId: string, timestamp: number) {
-    // TODO: Make batch-request to backend to resolve participants
-    const { name = '', email = '', avatar = '' } = getParticipant(userId);
+  private async updateParticipant(userId: string, timestamp: number) {
+    // Get info about a user from server
+    const response = await this.channel.getUser(userId);
 
     this.participants.set(userId, {
-      name,
-      email,
-      avatar,
+      name: response.user.username,
+      email: response.user.email,
+      avatar: `https://api.adorable.io/avatars/80/${userId.replace(/\s/g, '')}.png`,
       sessionId: userId,
       lastActive: timestamp,
     });

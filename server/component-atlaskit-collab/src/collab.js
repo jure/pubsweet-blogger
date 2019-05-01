@@ -59,6 +59,11 @@ function nonNegInteger(str) {
 }
 
 const collab = app => {
+  // Get the currently authenticated user's information via a token
+  const authBearer = app.locals.passport.authenticate('bearer', {
+    session: false,
+  })
+
   const io = socketIo(8080)
 
   io.on('connection', socket => {
@@ -81,12 +86,14 @@ const collab = app => {
   // The root endpoint outputs a list of the collaborative
   // editing document instances.
   app.options('/document', cors())
-  app.get('/document', cors(), (req, res) => {
+  app.get('/document', cors(), authBearer, (req, res) => {
+    console.log(req.path, req.user)
     res.send(instanceInfo())
   })
 
   app.options('/document/:id', cors())
-  app.get('/document/:id', cors(), (req, res) => {
+  app.get('/document/:id', cors(), authBearer, (req, res) => {
+    console.log(req.path, req.user)
     const inst = getInstance(req.params.id, reqIP(req))
 
     res.send({
@@ -100,7 +107,8 @@ const collab = app => {
   // returns all events between a given version and the server's
   // current version of the document.
   app.options('/document/:id/steps', cors())
-  app.get('/document/:id/steps', cors(), (req, res) => {
+  app.get('/document/:id/steps', cors(), authBearer, (req, res) => {
+    console.log(req.path, req.user)
     const version = nonNegInteger(req.query.version)
     const commentVersion = nonNegInteger(req.query.commentVersion)
 
@@ -124,7 +132,8 @@ const collab = app => {
   })
 
   // The event submission endpoint, which a client sends an event to.
-  app.post('/document/:id/steps', cors(), (req, res) => {
+  app.post('/document/:id/steps', cors(), authBearer, (req, res) => {
+    console.log(req.path, req.user)
     const version = nonNegInteger(req.body.version)
     const steps = req.body.steps.map(s => Step.fromJSON(schema, s))
     const clientId = req.headers['user-ari']
@@ -150,20 +159,23 @@ const collab = app => {
     return res.json(json)
   })
 
-  // The event submission endpoint, which a client sends an event to.
   app.options('/document/:id/telepointer', cors())
-  app.post('/document/:id/telepointer', cors(), (req, res) => {
-    // const steps = req.body.steps.map(s => Step.fromJSON(schema, s))
-    // const clientId = req.headers['user-ari']
-
-    io.to(`collab-service/${req.params.id}`).emit('telepointer:updated', req.body)
-    // eslint-disable-next-line
-    console.log('event sent')
+  app.post('/document/:id/telepointer', cors(), authBearer, (req, res) => {
+    io.to(`collab-service/${req.params.id}`).emit(
+      'telepointer:updated',
+      req.body,
+    )
 
     return res.status(200).send(req.body)
   })
 
-  // console.log(app.get('http'))
+  app.options('/document/:id/user/:id', cors())
+  app.get('/document/:id/user/:id', cors(), authBearer, async (req, res) => {
+    let user = await app.locals.models.User.find(req.params.id)
+    user = { username: user.username, id: user.id }
+
+    return res.status(200).send({ user })
+  })
 }
 
 module.exports = collab

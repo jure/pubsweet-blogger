@@ -6,7 +6,7 @@ import { hot } from 'react-hot-loader'
 
 import { Root } from 'pubsweet-client'
 
-import theme from '@pubsweet/coko-theme'
+import theme from './components/blogger-theme'
 
 import { createBrowserHistory } from 'history'
 import routes from './routes'

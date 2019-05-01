@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import { TextField, Button } from '@pubsweet/ui'
+import { TextField, Button, H1 } from '@pubsweet/ui'
 
 import { GET_POSTS } from './index'
 
@@ -30,6 +30,7 @@ const CreatePost = () => {
     >
       {(createPost, { data }) => (
         <div>
+          <H1>Create a new post</H1>
           <form
             onSubmit={e => {
               e.preventDefault()

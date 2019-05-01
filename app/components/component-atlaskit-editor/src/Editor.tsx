@@ -4,8 +4,9 @@ import { Editor, EditorContext, EditorActions, WithEditorActions } from '@atlask
 const io = require('socket.io-client')
 const socket = io.connect('http://localhost:8080')
 
-
-import styled from 'styled-components';
+import { ApolloConsumer } from 'react-apollo'
+import gql from 'graphql-tag'
+import styled from 'styled-components'
 // import React, { Component } from 'react';
 // import Button, { ButtonGroup } from '@atlaskit/button';
 // import PubSubClient from '@atlaskit/pubsub';
@@ -29,21 +30,7 @@ export const getRandomUser = () => {
   return Math.floor(Math.random() * 10000).toString();
 };
 
-const userId = `user/${getRandomUser()}`;
-
-
-
-// const pubSubClient = new PubSubClient({
-//   product: 'TEST',
-//   url: 'https://localhost:',
-//   securityProvider: () => {
-//     return {
-//       headers: {
-//         Authorization: 'test',
-//       },
-//     };
-//   },
-// });
+const userId = `${getRandomUser()}`;
 
 socket.on('connect', () => {
   // just a test
@@ -170,83 +157,97 @@ export default class App extends React.Component<Props, State> {
     return (
       <div>
         {this.renderErrorFlag()}
-        <DropzoneEditorWrapper>
-          {parentContainer => (
-            <EditorContext>
-              <Editor
-                appearance="full-page"
-                analyticsHandler={analyticsHandler}
-                allowAnalyticsGASV3={true}
-                allowCodeBlocks={true}
-                allowLayouts={true}
-                allowLists={true}
-                allowTextColor={true}
-                allowTables={{
-                  allowColumnResizing: true,
-                  allowMergeCells: true,
-                  allowNumberColumn: true,
-                  allowBackgroundColor: true,
-                  allowHeaderRow: true,
-                  allowHeaderColumn: true,
-                  permittedLayouts: 'all',
-                  stickToolbarToBottom: true,
-                }}
-                allowTemplatePlaceholders={{ allowInserting: true }}
-                // media={{
-                //   provider: mediaProvider,
-                //   allowMediaSingle: true,
-                //   customDropzoneContainer: parentContainer,
-                // }}
-                // emojiProvider={
-                //   emoji.storyData.getEmojiResource() as Promise<EmojiProvider>
-                // }
-                // mentionProvider={Promise.resolve(
-                //   mention.storyData.resourceProvider,
-                // )}
-                // taskDecisionProvider={Promise.resolve(
-                //   taskDecision.getMockTaskDecisionResource(),
-                // )}
-                // contextIdentifierProvider={storyContextIdentifierProviderFactory()}
-                collabEdit={{
-                  useNativePlugin: true,
-                  provider: Promise.resolve(
-                    new CollabProvider(
-                      {
-                        url: 'http://localhost:3000',
-                        securityProvider: () => ({
-                          headers: {
-                            Authorization: 'test',
-                            'user-ari': userId,
-                          },
-                          omitCredentials: true,
-                        }),
-                        docId: documentId!,
-                        userId,
-                      },
-                      pubSubClient,
-                    ),
-                  ),
-                  inviteToEditHandler: this.inviteToEditHandler,
-                  isInviteToEditButtonSelected: this.state
-                    .isInviteToEditButtonSelected,
-                  userId,
-                }}
-                placeholder="Write something..."
-                shouldFocus={false}
-                primaryToolbarComponents={
-                  <WithEditorActions
-                    render={actions => (
-                      <SaveAndCancelButtons editorActions={actions} />
-                    )}
-                  />
+        <ApolloConsumer>
+          { client => {
+            const { currentUser } = client.readQuery({
+              query: gql`query CurrentUser {
+                currentUser {
+                  id
+                  username
                 }
-                allowExtension={true}
-                // insertMenuItems={customInsertMenuItems}
-                // extensionHandlers={extensionHandlers}
-              />
-            </EditorContext>
-          )}
-        </DropzoneEditorWrapper>
+              }`
+            })
+            return (
+                    <DropzoneEditorWrapper>
+                    {parentContainer => (
+                      <EditorContext>
+                        <Editor
+                          appearance="full-page"
+                          analyticsHandler={analyticsHandler}
+                          allowAnalyticsGASV3={true}
+                          allowCodeBlocks={true}
+                          allowLayouts={true}
+                          allowLists={true}
+                          allowTextColor={true}
+                          allowTables={{
+                            allowColumnResizing: true,
+                            allowMergeCells: true,
+                            allowNumberColumn: true,
+                            allowBackgroundColor: true,
+                            allowHeaderRow: true,
+                            allowHeaderColumn: true,
+                            permittedLayouts: 'all',
+                            stickToolbarToBottom: true,
+                          }}
+                          allowTemplatePlaceholders={{ allowInserting: true }}
+                          // media={{
+                          //   provider: mediaProvider,
+                          //   allowMediaSingle: true,
+                          //   customDropzoneContainer: parentContainer,
+                          // }}
+                          // emojiProvider={
+                          //   emoji.storyData.getEmojiResource() as Promise<EmojiProvider>
+                          // }
+                          // mentionProvider={Promise.resolve(
+                          //   mention.storyData.resourceProvider,
+                          // )}
+                          // taskDecisionProvider={Promise.resolve(
+                          //   taskDecision.getMockTaskDecisionResource(),
+                          // )}
+                          // contextIdentifierProvider={storyContextIdentifierProviderFactory()}
+                          collabEdit={{
+                            useNativePlugin: true,
+                            provider: Promise.resolve(
+                              new CollabProvider(
+                                {
+                                  url: 'http://localhost:3000',
+                                  securityProvider: () => ({
+                                    headers: {
+                                      Authorization: `Bearer ${localStorage.token}`,
+                                      'user-ari': currentUser.id,
+                                    },
+                                  }),
+                                  docId: documentId!,
+                                  userId: currentUser.id,
+                                },
+                                pubSubClient,
+                              ),
+                            ),
+                            inviteToEditHandler: this.inviteToEditHandler,
+                            isInviteToEditButtonSelected: this.state
+                              .isInviteToEditButtonSelected,
+                            userId,
+                          }}
+                          placeholder="Write something..."
+                          shouldFocus={false}
+                          primaryToolbarComponents={
+                            <WithEditorActions
+                              render={actions => (
+                                <SaveAndCancelButtons editorActions={actions} />
+                              )}
+                            />
+                          }
+                          allowExtension={true}
+                          // insertMenuItems={customInsertMenuItems}
+                          // extensionHandlers={extensionHandlers}
+                        />
+                      </EditorContext>
+                    )}
+                  </DropzoneEditorWrapper>
+            )
+          }
+          }
+          </ApolloConsumer>
       </div>
     );
   }

@@ -69,7 +69,7 @@ export class Channel {
     const { doc, version } = await this.getDocument();
 
     this.pubSubClient.on('connect', () => {
-      logger('Connected to FPS-service');
+      logger('Connected to collab service');
     });
 
     this.pubSubClient.join(`collab-service/${docId}`);
@@ -178,9 +178,17 @@ export class Channel {
       path: `document/${this.config.docId}/telepointer`,
       requestInit: {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(data),
       },
+    });
+  }
+
+  async getUser(userId: String) {
+    return await utils.requestService<MixedResponse>(this.config, {
+      path: `document/${this.config.docId}/user/${userId}`,
     });
   }
 
