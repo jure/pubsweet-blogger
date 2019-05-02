@@ -6,6 +6,8 @@ import { Action, ActionGroup, Flexbox, H1, Icon, Section } from '@pubsweet/ui'
 import { th } from '@pubsweet/ui-toolkit'
 
 import CreatePost from './CreatePost'
+import DeletePost from './DeletePost'
+
 import Select from '../../Select'
 
 export const GET_POSTS = gql`
@@ -38,6 +40,20 @@ const Actions = styled.div`
   flex: 1;
 `
 
+const PostsList = styled.div`
+  @media screen and (min-width: 40em) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+`
+
+const Post = styled.div`
+  @media (min-width: 40em) {
+    flex: 0 1 calc(33% - 1em);
+  }
+`
+
 const PaddedAction = styled(Action)`
   padding-right: 1rem;
 
@@ -59,28 +75,31 @@ const Posts = () => (
       return (
         <StyledSection>
           <H1>Your posts</H1>
-          <Flexbox>
-            <Title>Title</Title>
-            <Authors>Authors</Authors>
-            <Actions>Actions</Actions>
-          </Flexbox>
-          {data.posts.map(post => (
-            <React.Fragment key={post.id}>
-              <Flexbox>
+          <PostsList>
+            {data.posts.map(post => (
+              <Post key={post.id}>
+
                 <Title>{post.title}</Title>
                 <Authors>
-                  <Select teamId={post.team.id} members={post.team.members} />
+                  <Select members={post.team.members} teamId={post.team.id} />
                 </Authors>
                 <Actions>
                   <PaddedAction to={`/dashboard/editor/${post.id}`}>
+                    <Icon primary size={2}>
+                      edit
+                    </Icon>
                     Edit
                   </PaddedAction>
-                  <PaddedAction to="">Delete</PaddedAction>
+                  <PaddedAction>
+                    <DeletePost postId={post.id} />
+                  </PaddedAction>
                 </Actions>
-              </Flexbox>
-            </React.Fragment>
-          ))}
+
+              </Post>
+            ))}
+          </PostsList>
           <CreatePost />
+
         </StyledSection>
       )
     }}

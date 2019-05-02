@@ -11,6 +11,7 @@ const CREATE_POST_WITH_TEAM = gql`
       id
       title
       team {
+        id
         members {
           id
           user {
