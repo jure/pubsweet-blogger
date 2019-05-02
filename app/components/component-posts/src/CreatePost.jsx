@@ -5,11 +5,20 @@ import { TextField, Button, H1 } from '@pubsweet/ui'
 
 import { GET_POSTS } from './index'
 
-const CREATE_POST = gql`
-  mutation createFragment($input: FragmentInput) {
-    createFragment(input: $input) {
+const CREATE_POST_WITH_TEAM = gql`
+  mutation createPostWithTeam($input: FragmentInput) {
+    createPostWithTeam(input: $input) {
       id
       title
+      team {
+        members {
+          id
+          user {
+            id
+            username
+          }
+        }
+      }
     }
   }
 `
@@ -19,12 +28,12 @@ const CreatePost = () => {
 
   return (
     <Mutation
-      mutation={CREATE_POST}
-      update={(cache, { data: { createFragment } }) => {
-        const { fragments } = cache.readQuery({ query: GET_POSTS })
+      mutation={CREATE_POST_WITH_TEAM}
+      update={(cache, { data: { createPostWithTeam } }) => {
+        const { posts } = cache.readQuery({ query: GET_POSTS })
         cache.writeQuery({
           query: GET_POSTS,
-          data: { fragments: fragments.concat([createFragment]) },
+          data: { posts: posts.concat([createPostWithTeam]) },
         })
       }}
     >

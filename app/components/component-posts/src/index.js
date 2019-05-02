@@ -6,12 +6,23 @@ import { Action, ActionGroup, Flexbox, H1, Icon, Section } from '@pubsweet/ui'
 import { th } from '@pubsweet/ui-toolkit'
 
 import CreatePost from './CreatePost'
+import Select from '../../Select'
 
 export const GET_POSTS = gql`
   {
-    fragments {
+    posts {
       id
       title
+      team {
+        id
+        members {
+          id
+          user {
+            id
+            username
+          }
+        }
+      }
     }
   }
 `
@@ -49,18 +60,22 @@ const Posts = () => (
         <StyledSection>
           <H1>Your posts</H1>
           <Flexbox>
-              <Title>Title</Title>
-              <Authors>Authors</Authors>
-              <Actions>Actions</Actions>
+            <Title>Title</Title>
+            <Authors>Authors</Authors>
+            <Actions>Actions</Actions>
           </Flexbox>
-          {data.fragments.map(post => (
+          {data.posts.map(post => (
             <React.Fragment key={post.id}>
               <Flexbox>
                 <Title>{post.title}</Title>
-                <Authors>user1, user2<Icon size={2}>plus</Icon></Authors>
+                <Authors>
+                  <Select teamId={post.team.id} members={post.team.members} />
+                </Authors>
                 <Actions>
-                <PaddedAction to={`/dashboard/editor/${post.id}`}>Edit</PaddedAction>
-                <PaddedAction to=''>Delete</PaddedAction>
+                  <PaddedAction to={`/dashboard/editor/${post.id}`}>
+                    Edit
+                  </PaddedAction>
+                  <PaddedAction to="">Delete</PaddedAction>
                 </Actions>
               </Flexbox>
             </React.Fragment>

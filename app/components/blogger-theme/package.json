@@ -1,7 +1,7 @@
 {
-  "name": "@pubsweet/coko-theme",
-  "version": "5.1.1",
-  "description": "This is a coko theme for Apps",
+  "name": "@pubsweet/blogger-theme",
+  "version": "1.0.0",
+  "description": "This is a theme for blogger",
   "main": "src",
   "license": "MIT",
   "publishConfig": {

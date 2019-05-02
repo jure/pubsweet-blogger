@@ -24,7 +24,7 @@
     "@pubsweet/default-theme": "4.0.13",
     "@pubsweet/logger": "^0.2.18",
     "@pubsweet/model-blog": "^0.0.11",
-    "@pubsweet/model-blogpost": "^0.0.11",
+    "@pubsweet/model-blogpost": "^0.0.12",
     "@pubsweet/model-team": "^2.0.5",
     "@pubsweet/model-user": "^4.0.5",
     "@pubsweet/models": "0.2.5",
@@ -39,6 +39,7 @@
     "pubsweet-component-signup": "^2.0.1",
     "pubsweet-server": "^13.3.0",
     "react-intl": "^2.8.0",
+    "react-select": "^2.4.3",
     "socket.io": "^2.2.0",
     "xpub-edit": "^2.5.17"
   },
