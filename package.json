@@ -16,6 +16,7 @@
     "@atlaskit/editor-common": "36.2.2",
     "@atlaskit/editor-core": "107.24.0",
     "@atlaskit/media-core": "^29.1.0",
+    "@atlaskit/util-data-test": "^10.2.2",
     "@babel/preset-typescript": "^7.3.3",
     "@pubsweet/coko-theme": "^5.1.0",
     "@pubsweet/component-password-reset-client": "^3.0.7",
@@ -24,7 +25,6 @@
     "@pubsweet/default-theme": "4.0.13",
     "@pubsweet/logger": "^0.2.18",
     "@pubsweet/model-blog": "^0.0.11",
-    "@pubsweet/model-blogpost": "^0.0.12",
     "@pubsweet/model-team": "^2.0.5",
     "@pubsweet/model-user": "^4.0.5",
     "@pubsweet/models": "0.2.5",
@@ -33,6 +33,7 @@
     "authsome": "^0.1.0",
     "cors": "^2.8.5",
     "mini-css-extract-plugin": "^0.5.0",
+    "prosemirror-dev-tools": "^2.1.1",
     "pubsweet": "^4.1.0",
     "pubsweet-client": "^9.2.1",
     "pubsweet-component-login": "^3.0.1",
@@ -97,6 +98,9 @@
     "url-loader": "^1.1.2",
     "webpack": "^4.29.6",
     "webpack-hot-middleware": "^2.22.1"
+  },
+  "resolutions": {
+    "styled-components": "4.2.0"
   },
   "scripts": {
     "lint": "eslint --ext js,jsx,ts,tsx app config test webpack",

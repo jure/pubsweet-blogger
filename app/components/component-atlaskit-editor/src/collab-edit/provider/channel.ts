@@ -65,14 +65,27 @@ export class Channel {
    */
   async connect() {
     console.log('connect() in channel called')
-    const { docId } = this.config;
+    const { docId, websocket } = this.config;
     const { doc, version } = await this.getDocument();
 
     this.pubSubClient.on('connect', () => {
-      logger('Connected to collab service');
+      this.eventEmitter.emit('connected', {
+        doc,
+        version,
+      });
+
+      logger('WOOOO!! Connected to collab service');
     });
 
+    this.pubSubClient.on('reconnect', async () => {
+      this.pubSubClient.join(`collab-service/${docId}`);
+
+      // const response = await this.getSteps(version)
+      this.emit('reconnected', {})
+    })
+
     this.pubSubClient.join(`collab-service/${docId}`);
+
     this.pubSubClient
       .on(
         'steps:created',
@@ -89,10 +102,7 @@ export class Channel {
         },
       );
 
-    this.eventEmitter.emit('connected', {
-      doc,
-      version,
-    });
+    websocket.connect()
   }
 
   private debounce(getState: any) {

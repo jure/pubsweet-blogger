@@ -1,0 +1,224 @@
+{
+  "emojis": [
+    {
+      "id": "atlassian-disapproval",
+      "name": "disapproval",
+      "fallback": ":disapproval:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/disapproval@4x.png",
+        "height": 72,
+        "width": 92
+      },
+      "searchable": true,
+      "shortName": ":disapproval:"
+    },
+    {
+      "id": "atlassian-feelsgoodman",
+      "name": "feels good man",
+      "fallback": ":feelsgoodman:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/feels_good_man@4x.png",
+        "height": 96,
+        "width": 120
+      },
+      "searchable": true,
+      "shortName": ":feelsgoodman:"
+    },
+    {
+      "id": "atlassian-skyrim",
+      "name": "skyrim",
+      "fallback": ":skyrim:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/skyrim@4x.png",
+        "height": 120,
+        "width": 68
+      },
+      "searchable": true,
+      "shortName": ":skyrim:"
+    },
+    {
+      "id": "atlassian-branch",
+      "name": "branch",
+      "fallback": ":branch:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/branch@4x.png",
+        "height": 64,
+        "width": 64
+      },
+      "searchable": true,
+      "shortName": ":branch:"
+    },
+    {
+      "id": "atlassian-upvote",
+      "name": "upvote",
+      "fallback": ":upvote:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/upvote@4x.png",
+        "height": 120,
+        "width": 116
+      },
+      "searchable": true,
+      "shortName": ":upvote:"
+    },
+    {
+      "id": "atlassian-ban",
+      "name": "ban",
+      "fallback": ":ban:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/ban.jpg",
+        "height": 30,
+        "width": 30
+      },
+      "searchable": true,
+      "shortName": ":ban:"
+    },
+    {
+      "id": "atlassian-ftfy",
+      "name": "ftfy",
+      "fallback": ":ftfy:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/ftfy@4x.png",
+        "height": 120,
+        "width": 120
+      },
+      "searchable": true,
+      "shortName": ":ftfy:"
+    },
+    {
+      "id": "atlassian-ftfy2",
+      "name": "ftfy",
+      "fallback": ":ftfy:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/ftfy@4x.png",
+        "height": 120,
+        "width": 120
+      },
+      "searchable": true,
+      "shortName": ":ftfy:"
+    },
+    {
+      "id": "atlassian-ftfy3",
+      "name": "ftfy",
+      "fallback": ":ftfy:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/ftfy@4x.png",
+        "height": 120,
+        "width": 120
+      },
+      "searchable": true,
+      "shortName": ":ftfy:"
+    },
+    {
+      "id": "atlassian-twss",
+      "name": "twss",
+      "fallback": ":twss:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/twss@4x.png",
+        "height": 100,
+        "width": 80
+      },
+      "searchable": true,
+      "shortName": ":twss:"
+    },
+    {
+      "id": "atlassian-evilburns",
+      "name": "evilburns",
+      "fallback": ":evilburns:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/evilburns@4x.png",
+        "height": 120,
+        "width": 96
+      },
+      "searchable": true,
+      "shortName": ":evilburns:"
+    },
+    {
+      "id": "atlassian-boom",
+      "name": "boom",
+      "fallback": ":boom:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -1000,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.useast.atlassian.io/atlassian/boom.gif",
+        "height": 30,
+        "width": 30
+      },
+      "searchable": true,
+      "shortName": ":boom:"
+    },
+    {
+      "id": "atlassian-minus",
+      "name": "Minus",
+      "fallback": ":minus:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -999,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/minus_64.png",
+        "height": 64,
+        "width": 64
+      },
+      "ascii": [
+        "(-)"
+      ],
+      "searchable": true,
+      "shortName": ":minus:"
+    },
+    {
+      "id": "atlassian-yellow_star",
+      "name": "Yellow Star",
+      "fallback": ":yellow_star:",
+      "type": "ATLASSIAN",
+      "category": "ATLASSIAN",
+      "order": -998,
+      "representation": {
+        "imagePath": "https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/atlassian/yellow_star_64.png",
+        "height": 64,
+        "width": 64
+      },
+      "ascii": [
+        "(*)",
+        "(*y)"
+      ],
+      "searchable": true,
+      "shortName": ":yellow_star:"
+    }
+  ],
+  "meta": {
+    "spriteSheets": {}
+  }
+}

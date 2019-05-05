@@ -1,0 +1,282 @@
+[
+  {
+    "id": "0",
+    "name": "Raina Halper",
+    "publicName": "Carolyn",
+    "avatarUrl": "https://api.adorable.io/avatars/1"
+  },
+  {
+    "id": "1",
+    "name": "Kaity",
+    "publicName": "Kaity",
+    "avatarUrl": "https://api.adorable.io/avatars/2"
+  },
+  {
+    "id": "2",
+    "name": "Verdie",
+    "avatarUrl": "https://api.adorable.io/avatars/3"
+  },
+  {
+    "id": "3",
+    "name": "Shae",
+    "avatarUrl": "https://api.adorable.io/avatars/4",
+    "byline": "Teammate"
+  },
+  {
+    "id": "4",
+    "name": "Fredericka Kollar",
+    "publicName": "Summer",
+    "avatarUrl": "https://api.adorable.io/avatars/5"
+  },
+  {
+    "id": "5",
+    "name": "Lorri Tremble",
+    "publicName": "Lorri Tremble",
+    "avatarUrl": "https://api.adorable.io/avatars/6"
+  },
+  {
+    "id": "6",
+    "name": "Dorene Rieger",
+    "publicName": "April",
+    "avatarUrl": "https://api.adorable.io/avatars/7"
+  },
+  {
+    "id": "7",
+    "name": "Erwin Petrovich",
+    "publicName": "Erwin Petrovich",
+    "avatarUrl": "https://api.adorable.io/avatars/8"
+  },
+  {
+    "id": "8",
+    "name": "Ty Bopp",
+    "publicName": "Ty Bopp",
+    "avatarUrl": "https://api.adorable.io/avatars/9"
+  },
+  {
+    "id": "9",
+    "name": "Helga Wetherbee",
+    "publicName": "Helga Wetherbee",
+    "avatarUrl": "https://api.adorable.io/avatars/10"
+  },
+  {
+    "id": "10",
+    "name": "Yuri Seals",
+    "publicName": "Boris",
+    "avatarUrl": "https://api.adorable.io/avatars/11"
+  },
+  {
+    "id": "11",
+    "name": "Elaine",
+    "publicName": "Elaine",
+    "avatarUrl": "https://api.adorable.io/avatars/12"
+  },
+  {
+    "id": "12",
+    "name": "Marlys",
+    "publicName": "Marlys",
+    "avatarUrl": "https://api.adorable.io/avatars/13"
+  },
+  {
+    "id": "13",
+    "name": "Cheryll Maust",
+    "publicName": "Amber",
+    "avatarUrl": "https://api.adorable.io/avatars/14"
+  },
+  {
+    "id": "14",
+    "name": "Alvin",
+    "publicName": "Alvin",
+    "avatarUrl": "https://api.adorable.io/avatars/15"
+  },
+  {
+    "id": "15",
+    "name": "Arlena",
+    "publicName": "Arlena",
+    "avatarUrl": "https://api.adorable.io/avatars/16"
+  },
+  {
+    "id": "16",
+    "name": "Vonda Wing",
+    "publicName": "Ariel",
+    "avatarUrl": "https://api.adorable.io/avatars/17"
+  },
+  {
+    "id": "17",
+    "name": "Critelli",
+    "avatarUrl": "https://api.adorable.io/avatars/18"
+  },
+  {
+    "id": "18",
+    "name": "Alica Woods",
+    "publicName": "awoods",
+    "avatarUrl": "https://api.adorable.io/avatars/19"
+  },
+  {
+    "id": "19",
+    "name": "Alica Armwood",
+    "publicName": "Jasmine"
+  },
+  {
+    "id":"20",
+    "name":"Penelope Gill",
+    "publicName": "gill",
+    "lozenge":"DEFAULT",
+    "highlight":{
+      "name":[
+        {
+          "start":10,
+          "end":11
+        }
+      ],
+      "publicName":[]
+    }
+  },
+  {
+    "id":"21",
+    "name":"Jill Jackson",
+    "publicName": "gill"
+  },
+  {
+    "id":"22",
+    "name":"Penelope Lim",
+    "publicName": "penelope"
+  },
+  {
+    "id":"Assignee",
+    "name":"Assignee",
+    "avatarUrl":"",
+    "publicName":"",
+    "lozenge":"SPECIAL",
+    "highlight":{
+      "name":[
+        {
+          "start":0,
+          "end":3
+        }
+      ],
+      "publicName":[
+        {
+          "start":0,
+          "end":3
+        }
+      ]
+    }
+  },
+  {
+    "id":"Unassigned",
+    "name":"Unassigned",
+    "avatarUrl":"",
+    "publicName":"unassigned",
+    "lozenge":"APP",
+    "highlight":{
+      "name":[
+        {
+          "start":0,
+          "end":3
+        }
+      ],
+      "publicName":[
+        {
+          "start":0,
+          "end":3
+        }
+      ]
+    }
+  },
+  {
+    "id":"team",
+    "name":"team",
+    "avatarUrl":"",
+    "publicName":"team",
+    "lozenge":"APP",
+    "highlight":{
+      "name":[
+        {
+          "start":0,
+          "end":3
+        }
+      ],
+      "publicName":[
+        {
+          "start":0,
+          "end":3
+        }
+      ]
+    }
+  },
+  {
+    "id":"fabric",
+    "name":"Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric ",
+    "publicName":"Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric Fabric ",
+    "avatarUrl":"",
+    "lozenge":"SPECIAL",
+    "highlight":{
+      "name":[],
+      "publicName":[
+        {
+          "start":0,
+          "end":3
+        }
+      ]
+    }
+  },
+  {
+    "id": "team-1",
+    "name": "The minimal team",
+    "type" : "team"
+  },
+  {
+    "id": "team-2",
+    "name": "That team with an Avatar",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/1.svg",
+    "type" : "team"
+  },
+  {
+    "id": "team-3",
+    "name": "Team with 1 member",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/0.svg",
+    "type" : "team",
+    "memberCount" : 1
+  },
+  {
+    "id": "team-4",
+    "name": "Team which you are the only member",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/2.svg",
+    "type" : "team",
+    "memberCount" : 1,
+    "includesYou" : true
+  },
+  {
+    "id": "team-5",
+    "name": "Team with 50+ members",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/4.svg",
+    "type" : "team",
+    "memberCount" : 51
+  },
+  {
+    "id": "team-6",
+    "name": "Large team which includes you",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/3.svg",
+    "type" : "team",
+    "memberCount" : 51,
+    "includesYou" : true
+  },
+  {
+    "id": "team-7",
+    "name": "Team which includes you",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/6.svg",
+    "type" : "team",
+    "memberCount" : 49,
+    "includesYou" : true
+  },
+  {
+    "id": "team-8",
+    "name": "Team with all the fields (except highlight)",
+    "avatarUrl": "https://ptc-directory-sited-static.us-east-1.staging.public.atl-paas.net/teams/avatars/5.svg",
+    "type" : "team",
+    "fixed" : false,
+    "description" : "This team has all the fields populated except highlights",
+    "memberCount" : 35,
+    "includesYou" : false
+  }
+]

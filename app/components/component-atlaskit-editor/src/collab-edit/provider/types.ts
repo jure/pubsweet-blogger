@@ -52,6 +52,7 @@ export type MixedResponse = DocumentResponse & StepResponse;
 export interface Config extends ServiceConfig {
   docId: string;
   userId: string;
+  websocket: object;
 }
 
 /**

@@ -15,6 +15,8 @@ export const GET_POSTS = gql`
     posts {
       id
       title
+      updated
+      created
       team {
         id
         members {
@@ -29,27 +31,35 @@ export const GET_POSTS = gql`
   }
 `
 
-const Title = styled.span`
+const Title = styled.h2`
   flex: 2;
 `
 
-const Authors = styled.span`
+const Authors = styled.div`
   flex: 2;
 `
 const Actions = styled.div`
+  margin-top: 1rem;
   flex: 1;
 `
 
 const PostsList = styled.div`
-  @media screen and (min-width: 40em) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
 `
 
 const Post = styled.div`
+  box-shadow: 0 0 1px ${th('colorPrimary')};
+  margin-bottom: 1rem;
+  padding: 0 1rem 1rem 1rem;
+  flex: 0 1 100%;
   @media (min-width: 40em) {
+    flex: 0 1 calc(50% - 1em);
+  }
+
+  @media (min-width: 60em) {
     flex: 0 1 calc(33% - 1em);
   }
 `
@@ -66,6 +76,12 @@ const StyledSection = styled(Section)`
   margin: 0 calc(${th('gridUnit')} * 3) calc(${th('gridUnit')} * 3) 1rem;
 `
 
+const Metadata = styled.div`
+  font-style: italic;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+`
+
 const Posts = () => (
   <Query query={GET_POSTS}>
     {({ loading, error, data }) => {
@@ -78,9 +94,12 @@ const Posts = () => (
           <PostsList>
             {data.posts.map(post => (
               <Post key={post.id}>
-
-                <Title>{post.title}</Title>
+                <Title>{post.title || 'Untitled'}</Title>
+                <Metadata>
+                  Created {new Date(parseInt(post.created)).toLocaleString()} (updated {new Date(parseInt(post.updated)).toLocaleString()})
+                 </Metadata>
                 <Authors>
+                  Authors:
                   <Select members={post.team.members} teamId={post.team.id} />
                 </Authors>
                 <Actions>
@@ -90,16 +109,12 @@ const Posts = () => (
                     </Icon>
                     Edit
                   </PaddedAction>
-                  <PaddedAction>
-                    <DeletePost postId={post.id} />
-                  </PaddedAction>
+                  <DeletePost postId={post.id} />
                 </Actions>
-
               </Post>
             ))}
           </PostsList>
           <CreatePost />
-
         </StyledSection>
       )
     }}

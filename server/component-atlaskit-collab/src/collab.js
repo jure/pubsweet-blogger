@@ -6,48 +6,20 @@ const cors = require('cors')
 const { Step } = require('prosemirror-transform')
 const { defaultSchema: schema } = require('@atlaskit/adf-schema')
 const socketIo = require('socket.io')
-const { getInstance, instanceInfo } = require('./instance')
+// const { getInstance } = require('./instance')
 
-// An object to assist in waiting for a collaborative editing
-// instance to publish a new version before sending the version
-// event data to the client.
-class Waiting {
-  constructor(res, inst, ip, finish) {
-    this.res = res
-    this.inst = inst
-    this.ip = ip
-    this.finish = finish
-    this.done = false
-    res.setTimeout(1000 * 60 * 5, () => {
-      this.abort()
-      this.send({})
-    })
-  }
+const MAX_STEP_HISTORY = 10000
 
-  abort() {
-    const found = this.inst.waiting.indexOf(this)
-    if (found > -1) this.inst.waiting.splice(found, 1)
-  }
-
-  send(output) {
-    if (this.done) return
-    output.res(this.res)
-    this.done = true
+const checkVersion = (remoteVersion, localVersion) => {
+  if (remoteVersion < 0 || remoteVersion > localVersion) {
+    const err = new Error(`Invalid version ${remoteVersion}`)
+    err.status = 400
+    throw err
   }
 }
-
-function outputEvents(inst, data) {
-  return {
-    version: inst.version,
-    steps: data.steps.map(s => s.toJSON()),
-    clientIDs: data.steps.map(step => step.clientID),
-    users: data.users,
-  }
-}
-
-function reqIP(request) {
-  return request.headers['x-forwarded-for'] || request.socket.remoteAddress
-}
+// function reqIP(request) {
+//   return request.headers['x-forwarded-for'] || request.socket.remoteAddress
+// }
 
 function nonNegInteger(str) {
   const num = Number(str)
@@ -85,21 +57,45 @@ const collab = app => {
 
   // The root endpoint outputs a list of the collaborative
   // editing document instances.
-  app.options('/document', cors())
-  app.get('/document', cors(), authBearer, (req, res) => {
-    console.log(req.path, req.user)
-    res.send(instanceInfo())
-  })
+  // app.options('/document', cors())
+  // app.get('/document', cors(), authBearer, (req, res) => {
+  //   console.log(req.path, req.user)
+  //   res.send(instanceInfo())
+  // })
 
   app.options('/document/:id', cors())
-  app.get('/document/:id', cors(), authBearer, (req, res) => {
-    console.log(req.path, req.user)
-    const inst = getInstance(req.params.id, reqIP(req))
+  app.get('/document/:id', cors(), authBearer, async (req, res) => {
+    const document = await app.locals.models.Blogpost.query().findById(
+      req.params.id,
+    )
+
+    // Initialize document on get, as hacky as they come.
+    let version
+    let doc
+    if (document.source) {
+      doc = JSON.parse(document.source)
+      // The version number of the document instance.
+      version = document.version
+    } else {
+      doc = schema
+        .node('doc', null, [
+          schema.node('paragraph', null, [
+            schema.text(
+              'This is a collaborative test document. Start editing to make it more interesting!',
+            ),
+          ]),
+        ])
+        .toJSON()
+      document.source = JSON.stringify(doc)
+      document.steps = []
+      version = 0
+      document.version = 0
+      await document.save()
+    }
 
     res.send({
-      doc: inst.doc.toJSON(),
-      users: inst.userCount,
-      version: inst.version,
+      doc,
+      version,
     })
   })
 
@@ -107,55 +103,99 @@ const collab = app => {
   // returns all events between a given version and the server's
   // current version of the document.
   app.options('/document/:id/steps', cors())
-  app.get('/document/:id/steps', cors(), authBearer, (req, res) => {
-    console.log(req.path, req.user)
-    const version = nonNegInteger(req.query.version)
-    const commentVersion = nonNegInteger(req.query.commentVersion)
+  app.get('/document/:id/steps', cors(), authBearer, async (req, res) => {
+    const remoteVersion = nonNegInteger(req.query.version)
 
-    const inst = getInstance(req.params.id, reqIP(req))
-    const data = inst.getEvents(version, commentVersion)
+    const document = await app.locals.models.Blogpost.query().findById(
+      req.params.id,
+    )
+
+    const getEvents = version => {
+      checkVersion(version, document.version)
+      const startIndex = document.steps.length - (document.version - version)
+      if (startIndex < 0) return false
+
+      return { steps: document.steps.slice(startIndex) }
+    }
+
+    const data = getEvents(remoteVersion)
+
     if (data === false) res.status(410).send('History no longer available')
 
     // If the server version is greater than the given version,
     // return the data immediately.
-    if (data.steps.length || data.comment.length)
-      res.send(outputEvents(inst, data))
-
-    // If the server version matches the given version,
-    // wait until a new version is published to return the event data.
-    const wait = new Waiting(res, inst, reqIP(req), () => {
-      wait.send(outputEvents(inst, inst.getEvents(version, commentVersion)))
+    res.send({
+      version: document.version,
+      steps: data.steps,
+      clientIDs: data.steps.map(step => step.clientID),
     })
-    inst.waiting.push(wait)
-
-    res.on('finish', () => wait.abort())
   })
 
   // The event submission endpoint, which a client sends an event to.
-  app.post('/document/:id/steps', cors(), authBearer, (req, res) => {
-    console.log(req.path, req.user)
+  app.post('/document/:id/steps', cors(), authBearer, async (req, res) => {
     const version = nonNegInteger(req.body.version)
     const steps = req.body.steps.map(s => Step.fromJSON(schema, s))
-    const clientId = req.headers['user-ari']
-
-    // eslint-disable-next-line
-    console.log(clientId)
-
-    const result = getInstance(req.params.id, reqIP(req)).addEvents(
-      version,
-      steps,
-      clientId,
+    const clientId = req.headers['user-session-id']
+    console.log(req.headers)
+    const document = await app.locals.models.Blogpost.query().findById(
+      req.params.id,
     )
+
+    let doc = schema.nodeFromJSON(JSON.parse(document.source))
+
+    const addEvents = async (remoteVersion, userId) => {
+      checkVersion(remoteVersion, document.version)
+      if (document.version !== remoteVersion) return false
+
+      // const maps = []
+      for (let i = 0; i < steps.length; i += 1) {
+        steps[i].userId = userId
+        const result = steps[i].apply(doc)
+        doc = result.doc
+        // maps.push(steps[i].getMap())
+      }
+
+      // Hack to get the userId set at the right place
+      let stepsJson = JSON.parse(JSON.stringify(steps))
+      stepsJson = stepsJson.map(s => {
+        s.userId = clientId
+        return s
+      })
+
+      document.source = JSON.stringify(doc.toJSON())
+      document.version += stepsJson.length
+      document.steps = document.steps.concat(stepsJson)
+      if (document.steps.length > MAX_STEP_HISTORY)
+        document.steps = document.steps.slice(
+          document.steps.length - MAX_STEP_HISTORY,
+        )
+
+      await document.save()
+      // this.sendUpdates()
+      // scheduleSave()
+
+      // Also return steps on adding events
+      const startIndex =
+        document.steps.length - (document.version - remoteVersion)
+
+      // eslint-disable-next-line
+      console.log('this', document.version, 'data', remoteVersion, steps, startIndex)
+
+      return {
+        version: document.version,
+        steps: document.steps.slice(startIndex),
+      }
+    }
+
+    const result = await addEvents(version, clientId)
+
     if (!result) return res.status(409).send('Version not current')
 
-    // Hack to get the userId set at the right place
     let json = JSON.stringify(result)
     json = JSON.parse(json)
-    json.steps = json.steps.map(s => {
-      s.userId = clientId
-      return s
-    })
+
     io.to(`collab-service/${req.params.id}`).emit('steps:created', json)
+
     return res.json(json)
   })
 

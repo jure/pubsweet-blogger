@@ -2,60 +2,49 @@ import React, { Component } from 'react';
 import { Editor, EditorContext, EditorActions, WithEditorActions } from '@atlaskit/editor-core';
 
 const io = require('socket.io-client')
-const socket = io.connect('http://localhost:8080')
-
+const websocket = io('http://localhost:8080', {autoConnect: false})
+window.ioconnection = websocket
 import { ApolloConsumer } from 'react-apollo'
+import applyDevTools from 'prosemirror-dev-tools';
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 // import React, { Component } from 'react';
 // import Button, { ButtonGroup } from '@atlaskit/button';
 // import PubSubClient from '@atlaskit/pubsub';
 
-
 // import {
 //   storyMediaProviderFactory,
 //   storyContextIdentifierProviderFactory,
 // } from '@atlaskit/editor-test-helpers';
 
-// import { mention, emoji, taskDecision } from '@atlaskit/util-data-test';
+import { mention, emoji, taskDecision } from './util-data-test';
 
-// import { EmojiProvider } from '@atlaskit/emoji';
+import { EmojiProvider } from '@atlaskit/emoji';
 // import { customInsertMenuItems } from '@atlaskit/editor-test-helpers';
 // import { extensionHandlers } from '../example-helpers/extension-handlers';
 
 import { CollabProvider } from './collab-edit';
 
-
-export const getRandomUser = () => {
-  return Math.floor(Math.random() * 10000).toString();
-};
-
-const userId = `${getRandomUser()}`;
-
-socket.on('connect', () => {
-  // just a test
-  console.log('woooot')
-  socket.emit('test', 'test')
-})
 // socket.on('steps:created', () => { console.log('doop')})
 const pubSubClient = {
   on: (event: string, callback: any) => { console.log('registering for', event)
-    socket.emit('test', 'test')
-    return socket.on(event, callback)
+    return websocket.on(event, callback)
   },
   off: (event: string, callback: any) => { console.log('unregistering for', event)
-  return socket.on(event, callback)
+    return websocket.on(event, callback)
   },
   join: (room: string) => {
-    console.log(socket.connected, `should emit event for ${room}`)
-    socket.emit('join', room)
+    console.log(websocket.connected, `should emit event for ${room}`)
+    websocket.emit('join', room)
     return pubSubClient
   },
   leave: (room: string) => {
-    socket.emit('leave', room)
+    websocket.emit('leave', room)
     return pubSubClient
   },
 }
+
+let randomSessionId = Math.random().toString()
 
 localStorage.debug = "socket.io-client:*"
 export const Content: any = styled.div`
@@ -122,6 +111,21 @@ export type State = {
   hasError?: boolean;
 };
 
+export function DevTools() {
+  return (
+    <WithEditorActions
+      render={actions => {
+        const editorView = actions._privateGetEditorView();
+        if (editorView) {
+          applyDevTools(editorView);
+        }
+        return null;
+      }}
+    />
+  );
+}
+
+
 export default class App extends React.Component<Props, State> {
   state = {
     isInviteToEditButtonSelected: false,
@@ -171,10 +175,10 @@ export default class App extends React.Component<Props, State> {
                     <DropzoneEditorWrapper>
                     {parentContainer => (
                       <EditorContext>
+                        <>
+                        <DevTools />
                         <Editor
                           appearance="full-page"
-                          analyticsHandler={analyticsHandler}
-                          allowAnalyticsGASV3={true}
                           allowCodeBlocks={true}
                           allowLayouts={true}
                           allowLists={true}
@@ -189,21 +193,21 @@ export default class App extends React.Component<Props, State> {
                             permittedLayouts: 'all',
                             stickToolbarToBottom: true,
                           }}
-                          allowTemplatePlaceholders={{ allowInserting: true }}
+                          // allowTemplatePlaceholders={{ allowInserting: true }}
                           // media={{
                           //   provider: mediaProvider,
                           //   allowMediaSingle: true,
                           //   customDropzoneContainer: parentContainer,
                           // }}
-                          // emojiProvider={
-                          //   emoji.storyData.getEmojiResource() as Promise<EmojiProvider>
-                          // }
-                          // mentionProvider={Promise.resolve(
-                          //   mention.storyData.resourceProvider,
-                          // )}
-                          // taskDecisionProvider={Promise.resolve(
-                          //   taskDecision.getMockTaskDecisionResource(),
-                          // )}
+                          emojiProvider={
+                            emoji.storyData.getEmojiResource() as Promise<EmojiProvider>
+                          }
+                          mentionProvider={Promise.resolve(
+                            mention.storyData.resourceProvider,
+                          )}
+                          taskDecisionProvider={Promise.resolve(
+                            taskDecision.getMockTaskDecisionResource(),
+                          )}
                           // contextIdentifierProvider={storyContextIdentifierProviderFactory()}
                           collabEdit={{
                             useNativePlugin: true,
@@ -214,11 +218,12 @@ export default class App extends React.Component<Props, State> {
                                   securityProvider: () => ({
                                     headers: {
                                       Authorization: `Bearer ${localStorage.token}`,
-                                      'user-ari': currentUser.id,
+                                      'user-session-id': `${currentUser.id}|${randomSessionId}`,
                                     },
                                   }),
                                   docId: documentId!,
-                                  userId: currentUser.id,
+                                  userId: `${currentUser.id}|${randomSessionId}`,
+                                  websocket,
                                 },
                                 pubSubClient,
                               ),
@@ -226,7 +231,7 @@ export default class App extends React.Component<Props, State> {
                             inviteToEditHandler: this.inviteToEditHandler,
                             isInviteToEditButtonSelected: this.state
                               .isInviteToEditButtonSelected,
-                            userId,
+                            userId: `${currentUser.id}|${randomSessionId}`,
                           }}
                           placeholder="Write something..."
                           shouldFocus={false}
@@ -237,10 +242,11 @@ export default class App extends React.Component<Props, State> {
                               )}
                             />
                           }
-                          allowExtension={true}
+                          // allowExtension={true}
                           // insertMenuItems={customInsertMenuItems}
                           // extensionHandlers={extensionHandlers}
                         />
+                        </>
                       </EditorContext>
                     )}
                   </DropzoneEditorWrapper>

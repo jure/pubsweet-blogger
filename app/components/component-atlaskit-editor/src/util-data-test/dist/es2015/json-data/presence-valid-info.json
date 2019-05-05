@@ -1,0 +1,63 @@
+{
+  "data": {
+    "PresenceBulk": [
+      {
+        "userId": "0",
+        "state": "unavailable",
+        "type": "product",
+        "date": "2017-03-03T06:49:09.160Z",
+        "message": "Away"
+      },
+      {
+        "userId": "1",
+        "state": "available",
+        "type": "principal",
+        "date": "2017-03-01T04:26:08.153Z",
+        "message": ""
+      },
+      {
+        "userId": "2",
+        "state": "available",
+        "type": "product",
+        "date": null,
+        "message": null
+      },
+      {
+        "userId": "3",
+        "state": "busy",
+        "type": "product",
+        "date": "2017-03-01T01:10:51.800Z",
+        "message": "Away"
+      },
+      {
+        "userId": "4",
+        "state": "unavailable",
+        "type": "principal",
+        "date": "2017-03-12T23:02:53.193Z",
+        "message": "On leave until 3/4"
+      },
+      {
+        "userId": "5",
+        "state": "busy",
+        "type": "principal",
+        "date": "2017-03-10T04:28:15.617Z",
+        "message": "On call"
+      },
+      {
+        "userId": "6",
+        "state": "busy",
+        "stateMetadata": "{\"focus\": {\"previousState\": \"available\",\"previousMessage\": null}}",
+        "type": "principal",
+        "date": "2017-11-16T06:33:39.617Z",
+        "message": "I have things to do!"
+      },
+      {
+        "userId": "7",
+        "state": null,
+        "type": null,
+        "date": null,
+        "message": null
+      }
+    ]
+  }
+}

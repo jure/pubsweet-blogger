@@ -1,0 +1,47 @@
+{
+  "data": {
+    "PresenceBulk": [
+      {
+        "userId": "1810620",
+        "state": "true",
+        "type": "product",
+        "date": "2017-03-03T06:49:09.160Z",
+        "message": "Away"
+      },
+      {
+        "userId": "1293711",
+        "type": "principal",
+        "date": "2017-03-01T04:26:08.153Z",
+        "message": ""
+      },
+      {
+        "state": "available",
+        "type": "product",
+        "date": null,
+        "message": null
+      },
+      {
+        "userId": "1384515",
+        "state": "<script>alert(1);</script>",
+        "type": "principal",
+        "date": "2017-03-10T04:28:15.617Z",
+        "message": "On call"
+      },
+      {
+        "userId": "84107",
+        "state": null,
+        "type": null,
+        "date": null,
+        "message": null
+      },
+      {
+        "userId": "42563",
+        "state": "busy",
+        "stateMetadata": "not valid json",
+        "type": "product",
+        "date": null,
+        "message": null
+      }
+    ]
+  }
+}

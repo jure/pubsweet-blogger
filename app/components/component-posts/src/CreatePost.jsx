@@ -10,6 +10,8 @@ const CREATE_POST_WITH_TEAM = gql`
     createPostWithTeam(input: $input) {
       id
       title
+      updated
+      created
       team {
         id
         members {

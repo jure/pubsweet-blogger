@@ -45,6 +45,10 @@ module.exports = [
           __dirname,
           '../app/components/component-atlaskit-editor/src/collab-edit',
         ),
+        '@atlaskit/tooltip': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/src/_styledCompat/tooltip/src/components/Tooltip.js'
+        ),
       },
       extensions: ['.js', '.jsx', '.json', '.tsx', '.ts'],
       enforceExtension: false,

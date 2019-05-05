@@ -82,6 +82,16 @@ module.exports = (opts = {}) => {
     ),
   )
 
+  plugins.push(
+    new webpack.NormalModuleReplacementPlugin(
+      /@atlaskit\/editor-core\/ui\/PanelTextInput\/index.js/,
+      path.join(
+        __dirname,
+        '../app/components/component-atlaskit-editor/src/_styledCompat/PanelTextInput/index.js',
+      ),
+    ),
+  )
+
   // plugins.push(
   //   new webpack.NormalModuleReplacementPlugin(
   //     /@atlaskit\/editor-core\/plugins\/collab-edit\/ui\/avatars.js/,

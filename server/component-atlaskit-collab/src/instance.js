@@ -54,8 +54,8 @@ class Instance {
     // eslint-disable-next-line
     console.log('this', this.version, 'data', version, steps)
 
-    this.sendUpdates()
-    scheduleSave()
+    // this.sendUpdates()
+    // scheduleSave()
 
     // Also return steps on adding events
     const startIndex = this.steps.length - (this.version - version)
@@ -89,31 +89,31 @@ class Instance {
     return { steps: this.steps.slice(startIndex), users: this.userCount }
   }
 
-  collectUsers() {
-    const oldUserCount = this.userCount
-    this.users = Object.create(null)
-    this.userCount = 0
-    this.collecting = null
-    for (let i = 0; i < this.waiting.length; i += 1)
-      this._registerUser(this.waiting[i].ip)
-    if (this.userCount !== oldUserCount) this.sendUpdates()
-  }
+  // collectUsers() {
+  //   const oldUserCount = this.userCount
+  //   this.users = Object.create(null)
+  //   this.userCount = 0
+  //   this.collecting = null
+  //   for (let i = 0; i < this.waiting.length; i += 1)
+  //     this._registerUser(this.waiting[i].ip)
+  //   if (this.userCount !== oldUserCount) this.sendUpdates()
+  // }
 
-  registerUser(ip) {
-    if (!(ip in this.users)) {
-      this._registerUser(ip)
-      this.sendUpdates()
-    }
-  }
+  // registerUser(ip) {
+  //   if (!(ip in this.users)) {
+  //     this._registerUser(ip)
+  //     this.sendUpdates()
+  //   }
+  // }
 
-  _registerUser(ip) {
-    if (!(ip in this.users)) {
-      this.users[ip] = true
-      this.userCount = this.userCount + 1
-      if (this.collecting == null)
-        this.collecting = setTimeout(() => this.collectUsers(), 5000)
-    }
-  }
+  // _registerUser(ip) {
+  //   if (!(ip in this.users)) {
+  //     this.users[ip] = true
+  //     this.userCount = this.userCount + 1
+  //     if (this.collecting == null)
+  //       this.collecting = setTimeout(() => this.collectUsers(), 5000)
+  //   }
+  // }
 }
 
 const instances = Object.create(null)
@@ -162,7 +162,7 @@ function doSave() {
   writeFile(saveFile, JSON.stringify(out), () => null)
 }
 
-function getInstance(id, ip) {
+function getInstance(id) {
   const inst = instances[id] || newInstance(id)
   if (ip) inst.registerUser(ip)
   inst.lastActive = Date.now()

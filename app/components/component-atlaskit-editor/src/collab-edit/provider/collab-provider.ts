@@ -19,6 +19,7 @@ import { logger } from './';
 import { getParticipant } from './mock-users';
 import { response } from 'express';
 
+
 export class CollabProvider implements CollabEditProvider {
   private eventEmitter: EventEmitter2 = new EventEmitter2();
   private channel: Channel;
@@ -40,10 +41,15 @@ export class CollabProvider implements CollabEditProvider {
     this.channel
       .on('connected', ({ doc, version }) => {
         logger(`Joined collab-session. The document version is ${version}`);
+
         const { userId } = this.config;
 
         this.emit('init', { sid: userId, doc, version }) // Set initial document
           .emit('connected', { sid: userId }); // Let the plugin know that we're connected an ready to go
+      })
+      .on('reconnected', () => {
+        // this.catchup()
+        console.log('reconnected!')
       })
       .on('data', this.onReceiveData)
       .on('telepointer', this.onReceiveTelepointer)
@@ -103,7 +109,7 @@ export class CollabProvider implements CollabEditProvider {
   private async catchup() {
     this.pauseQueue = true;
 
-    logger(`Too far behind - fetching data from service`);
+    logger(`Trying to catch up by fetching data from service`);
 
     const currentVersion = getVersion(this.getState());
 
@@ -230,15 +236,17 @@ export class CollabProvider implements CollabEditProvider {
     this.emit('telepointer', data);
   };
 
-  private async updateParticipant(userId: string, timestamp: number) {
-    // Get info about a user from server
-    const response = await this.channel.getUser(userId);
+  private async updateParticipant(sessionId: string, timestamp: number) {
+    // Get info about a user from server, knowing that
+    // sessionId is user id + random session:
+    const userId = sessionId.split('|')[0]
+    const response = await this.channel.getUser(userId.split('|')[0]);
 
     this.participants.set(userId, {
       name: response.user.username,
       email: response.user.email,
       avatar: `https://api.adorable.io/avatars/80/${userId.replace(/\s/g, '')}.png`,
-      sessionId: userId,
+      sessionId,
       lastActive: timestamp,
     });
 
