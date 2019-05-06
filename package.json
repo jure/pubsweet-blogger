@@ -15,6 +15,7 @@
     "@atlaskit/avatar-group": "^3.0.1",
     "@atlaskit/editor-common": "36.2.2",
     "@atlaskit/editor-core": "107.24.0",
+    "@atlaskit/editor-test-helpers": "^9.1.1",
     "@atlaskit/media-core": "^29.1.0",
     "@atlaskit/renderer": "^48.0.1",
     "@atlaskit/util-data-test": "^10.2.2",

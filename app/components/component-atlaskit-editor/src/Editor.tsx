@@ -194,6 +194,7 @@ export default class App extends React.Component<Props, State> {
                             stickToolbarToBottom: true,
                           }}
                           // allowTemplatePlaceholders={{ allowInserting: true }}
+                          // legacyImageUploadProvider={Promise.resolve(() => {})}
                           // media={{
                           //   provider: mediaProvider,
                           //   allowMediaSingle: true,
@@ -235,13 +236,13 @@ export default class App extends React.Component<Props, State> {
                           }}
                           placeholder="Write something..."
                           shouldFocus={false}
-                          primaryToolbarComponents={
-                            <WithEditorActions
-                              render={actions => (
-                                <SaveAndCancelButtons editorActions={actions} />
-                              )}
-                            />
-                          }
+                          // primaryToolbarComponents={
+                            // <WithEditorActions
+                            //   render={actions => (
+                            //     <SaveAndCancelButtons editorActions={actions} />
+                            //   )}
+                            // />
+                          // }
                           // allowExtension={true}
                           // insertMenuItems={customInsertMenuItems}
                           // extensionHandlers={extensionHandlers}
