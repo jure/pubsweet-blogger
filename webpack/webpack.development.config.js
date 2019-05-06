@@ -57,6 +57,14 @@ module.exports = [
           __dirname,
           '../app/components/component-atlaskit-editor/src/_styledCompat/avatar-js/src',
         ),
+        '../ui/Appearance/FullPage': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/src/_styledCompat/FullPage.tsx',
+        ),
+        '@atlaskit/droplist': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/src/_styledCompat/droplist-js/src',
+        ),
       },
       extensions: ['.js', '.jsx', '.json', '.tsx', '.ts'],
       enforceExtension: false,
