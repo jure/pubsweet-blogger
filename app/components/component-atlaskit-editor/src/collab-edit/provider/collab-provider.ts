@@ -39,18 +39,22 @@ export class CollabProvider implements CollabEditProvider {
     this.getState = getState;
 
     this.channel
-      .on('connected', ({ doc, version }) => {
-        logger(`Joined collab-session. The document version is ${version}`);
+      .on('connected', ({ doc, version, init }) => {
 
         const { userId } = this.config;
 
-        this.emit('init', { sid: userId, doc, version }) // Set initial document
-          .emit('connected', { sid: userId }); // Let the plugin know that we're connected an ready to go
+        if(init) {
+          logger(`Joined collab-session. The document version is ${version}`);
+          this.emit('init', { sid: userId, doc, version }) // Set initial document
+        } else {
+          logger(`Re-joined collab-session.`);
+          this.catchup()
+        }
+        this.emit('connected', { sid: userId }); // Let the plugin know that we're connected an ready to go
       })
-      .on('reconnected', () => {
-        // this.catchup()
-        console.log('reconnected!')
-      })
+      // .on('reconnected', () => {
+      //   console.log('reconnected!')
+      // })
       .on('data', this.onReceiveData)
       .on('telepointer', this.onReceiveTelepointer)
       .connect();

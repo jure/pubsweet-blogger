@@ -14,10 +14,13 @@ import LandingPage from './components/LandingPage'
 // And this is where your admin stuff goes
 import Dashboard from './components/Dashboard'
 
+import Post from './components/Post'
+
 export default (
   <App>
     <Switch>
       <Route component={LandingPage} exact path="/" />
+      <Route component={Post} path="/post/:id" />
       <Route component={Dashboard} path="/dashboard" />
       <Route component={Login} path="/login" />
       <Route component={Signup} path="/signup" />

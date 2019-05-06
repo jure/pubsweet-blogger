@@ -47,7 +47,6 @@ const PostsList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
 `
 
 const Post = styled.div`
@@ -96,8 +95,9 @@ const Posts = () => (
               <Post key={post.id}>
                 <Title>{post.title || 'Untitled'}</Title>
                 <Metadata>
-                  Created {new Date(parseInt(post.created)).toLocaleString()} (updated {new Date(parseInt(post.updated)).toLocaleString()})
-                 </Metadata>
+                  Created {new Date(parseInt(post.created)).toLocaleString()}{' '}
+                  (updated {new Date(parseInt(post.updated)).toLocaleString()})
+                </Metadata>
                 <Authors>
                   Authors:
                   <Select members={post.team.members} teamId={post.team.id} />
@@ -122,30 +122,3 @@ const Posts = () => (
 )
 
 export default Posts
-
-// const AddTodo = () => {
-//   let input
-
-//   return (
-//     <Mutation mutation={ADD_TODO}>
-//       {(addTodo, { data }) => (
-//         <div>
-//           <form
-//             onSubmit={e => {
-//               e.preventDefault()
-//               addTodo({ variables: { type: input.value } })
-//               input.value = ''
-//             }}
-//           >
-//             <input
-//               ref={node => {
-//                 input = node
-//               }}
-//             />
-//             <button type="submit">Add Todo</button>
-//           </form>
-//         </div>
-//       )}
-//     </Mutation>
-//   )
-// }

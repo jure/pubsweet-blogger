@@ -1,6 +1,4 @@
 /* eslint-disable import/extensions */
-import 'typeface-fira-sans-condensed'
-import 'typeface-vollkorn'
 
 import {
   Action,
@@ -37,10 +35,14 @@ const cokoTheme = {
   /* Text variables */
 
   // fonts
-  fontInterface: "'Fira Sans Condensed'",
-  fontHeading: "'Fira Sans Condensed'",
-  fontReading: "'Vollkorn'",
-  fontWriting: "'Cokourier Prime Sans'",
+  fontInterface:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+  fontHeading:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+  fontReading:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+  fontWriting:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 
   // font sizes
   fontSizeBase: '16px',

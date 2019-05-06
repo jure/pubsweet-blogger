@@ -68,13 +68,15 @@ export class Channel {
     const { docId, websocket } = this.config;
     const { doc, version } = await this.getDocument();
 
+    let init = true
+
     this.pubSubClient.on('connect', () => {
       this.eventEmitter.emit('connected', {
         doc,
         version,
+        init
       });
-
-      logger('WOOOO!! Connected to collab service');
+      init = false
     });
 
     this.pubSubClient.on('reconnect', async () => {
@@ -102,6 +104,9 @@ export class Channel {
         },
       );
 
+    if(websocket.connected) {
+      websocket.disconnect()
+    }
     websocket.connect()
   }
 

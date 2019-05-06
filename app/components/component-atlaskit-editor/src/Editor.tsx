@@ -176,7 +176,7 @@ export default class App extends React.Component<Props, State> {
                     {parentContainer => (
                       <EditorContext>
                         <>
-                        <DevTools />
+                        {/* <DevTools /> */}
                         <Editor
                           appearance="full-page"
                           allowCodeBlocks={true}

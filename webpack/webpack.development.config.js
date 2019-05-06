@@ -47,7 +47,15 @@ module.exports = [
         ),
         '@atlaskit/tooltip': path.join(
           __dirname,
-          '../app/components/component-atlaskit-editor/src/_styledCompat/tooltip/src/components/Tooltip.js'
+          '../app/components/component-atlaskit-editor/src/_styledCompat/tooltip/src/components/Tooltip.js',
+        ),
+        '@atlaskit/task-decision': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/src/_styledCompat/task-decision',
+        ),
+        '@atlaskit/avatar': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/src/_styledCompat/avatar-js/src',
         ),
       },
       extensions: ['.js', '.jsx', '.json', '.tsx', '.ts'],
