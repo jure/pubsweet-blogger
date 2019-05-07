@@ -65,6 +65,18 @@ module.exports = [
           __dirname,
           '../app/components/component-atlaskit-editor/src/_styledCompat/droplist-js/src',
         ),
+        '@atlaskit/icon': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/icon',
+        ),
+        '@atlaskit/icon-object': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/icon',
+        ),
+        '@atlaskit/icon-file-type': path.join(
+          __dirname,
+          '../app/components/component-atlaskit-editor/icon',
+        ),
       },
       extensions: ['.js', '.jsx', '.json', '.tsx', '.ts'],
       enforceExtension: false,
